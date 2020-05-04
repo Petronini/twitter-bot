@@ -1,12 +1,12 @@
 const Twit = require("twit"); //Importamos la libreria de twit 2.2.11
+const cron = require("node-cron");//The node-cron module is tiny task scheduler in pure JavaScript for node.js based on GNU crontab. This module allows you to schedule task in node.js using full crontab syntax.
 var config = require('./config.js'); //Importamos la configuracion de las 
                                     //credenciales de twitter desde el archivo config.js
 
 //Configuramos la API de Twitter, los datos estan en config.js
 var T = new Twit(config);
 
-/**Configuración de parametros**/
-
+/**START Configuración de parametros**/
 const prob_rt = 5;
 const prob_mg = 10;
 const prob_follow = 7;
@@ -17,9 +17,24 @@ const mg_diarios = 400;
 const rt_diarios = 70;
 const follow_diarios = 250;
 
+//Control de las acciones por dia actualmente
+var mg_diarios_actuales = 0;
+var rt_diarios_actuales = 0;
+var follow_diarios_actuales = 0;
+/**-END  Configuración de parametros**/
+
+/**Reset de acciones diarias**/
+cron.schedule("10 20 8 * * *", () => {
+  mg_diarios_actuales = 0;
+  rt_diarios_actuales = 0;
+  follow_diarios_actuales = 0;
+});
+/**-Reset de acciones diarias**/
 
 
 //Declaramos los hashtags o textos que nos interesa seguir
+console.log("Buscando tweets . . .");
+
 const stream1 = T.stream("statuses/filter", { track: "#QuedateEnCasa" });
 const stream2 = T.stream("statuses/filter", { track: "#EnsEnSortirem" });
 
@@ -46,14 +61,35 @@ function reTweet(tweet) {
   // TODO recuentos
 }
 
-// Dar Me Gusta a Tweets de forma automática
+// // Dar Me Gusta a Tweets de forma automática
+// function meGusta(tweet) {
+//   T.post("favorites/create", { id: tweet.id_str }, function(
+//     err,
+//     data,
+//     response
+//   ) {
+//     console.log("'Me gusta' dado a: @" + tweet.user.screen_name);
+//   });
+//   // TODO recuentos
+// }
+
+//Funcion encargada de dar Me Gusta
 function meGusta(tweet) {
-  T.post("favorites/create", { id: tweet.id_str }, function(
-    err,
-    data,
-    response
-  ) {
-    console.log("'Me gusta' dado a: @" + tweet.user.screen_name);
-  });
-  // TODO recuentos
+  if (randomNumber() < prob_mg && tweet.user.followers_count>min_followers && (mg_diarios_actuales < mg_diarios) && tweet.entities.hashtags.length < 3) {
+    T.post("favorites/create", { id: tweet.id_str }, function(
+      err,
+      data,
+      response
+    ) {
+      console.log("Me gusta dado a: @" + tweet.user.screen_name + ". El númbero random es: " + randomNumber());
+    });
+    mg_diarios_actuales++;
+    console.log("Hoy llevas " + mg_diarios_actuales + " me gusta dados.");
+  }
+}
+
+
+//Devuelve un numero del 1 al 100
+function randomNumber() {
+  return Math.floor(Math.random() * 100 + 1);
 }
