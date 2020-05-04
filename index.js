@@ -4,3 +4,7 @@ var config = require('./config.js'); //Importamos la configuracion de las
 
 //Configuramos la API de Twitter, los datos estan en el .env
 var T = new Twit(config);
+
+//Declaramos los hashtags o textos que nos interesa seguir
+const stream1 = T.stream("statuses/filter",{track:"#QuedateEnCasa"});
+const stream2 = T.stream("statuses/filter", { track: "#EnsEnSortirem" });
