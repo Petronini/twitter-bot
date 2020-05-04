@@ -12,6 +12,12 @@ const prob_mg = 10;
 const prob_follow = 7;
 const min_followers = 750; //Minimo de seguidores para que interaccione con la cuenta
 
+//Limite de acciones por dia
+const mg_diarios = 400;
+const rt_diarios = 70;
+const follow_diarios = 250;
+
+
 
 //Declaramos los hashtags o textos que nos interesa seguir
 const stream1 = T.stream("statuses/filter", { track: "#QuedateEnCasa" });
