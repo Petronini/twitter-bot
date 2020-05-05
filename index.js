@@ -35,13 +35,23 @@ cron.schedule("10 20 8 * * *", () => {
 //Declaramos los hashtags o textos que nos interesa seguir
 console.log("Buscando tweets . . .");
 
-const Barcelona = [ '41.046', '0.637',  '42.066', '3.505' ];
-
-const hashtags =  ['#EnsEnSortirem', '#ElIntermedio', '#QuedateEnCasa', "#amor"];
+const Spain = ['35.693', '-9.47', '43.66',' 3.582'];
+const Barcelona = ['41.046', '0.637',  '42.066', '3.505'];
+const sanFrancisco = [ '-122.75', '36.8', '-121.75', '37.8' ];
+const bcn = '41.3897,2.1568,20km';
+// Barcelona '41.046', '0.637',  '42.066', '3.505'
+// Spain '35.693', '-9.47', '43.66',' 3.582' 
+// , '#ElIntermedio', '#QuedateEnCasa'
 // const stream1 = T.stream("statuses/filter", { track: "#QuedateEnCasa" });
 // const stream2 = T.stream("statuses/filter", { track: "#EnsEnSortirem" });
 // const stream3 = T.stream("statuses/filter", { track: "#ElIntermedio" });
-const receivingStream = T.stream("statuses/filter", { track: hashtags, locations: Barcelona, language: 'es'  } );
+// track params: locations: Spain, language: 'es' 
+const stream = T.stream(  "statuses/filter", { 
+  track: ['#EnsEnSortirem filter:media', '#QuedateEnCasa filter:media', '#ElIntermedio filter:media', '#QuédateEnCasa filter:media'],
+  locations: Spain,
+  language: '' 
+  }  );
+  
 // escuchando todos los tweets que contengan el hashtag #QuedateEnCasa y #EnsEnSortirem
 
 // Un "retweet" dado a un post de hastag/texto concreto
@@ -52,7 +62,7 @@ const receivingStream = T.stream("statuses/filter", { track: hashtags, locations
 // stream1.on("tweet", meGusta);
 // stream2.on("tweet", meGusta);
 // stream3.on("tweet", meGusta);
-receivingStream.on("tweet", meGusta);
+stream.on("tweet", meGusta);
 
 // Retweets automáticamente
 //Funcion encargada de dar Retweet
