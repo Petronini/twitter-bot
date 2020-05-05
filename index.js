@@ -1,23 +1,58 @@
 const Twit = require("twit"); //Importamos la libreria de twit 2.2.11
+const cron = require("node-cron");//The node-cron module is tiny task scheduler in pure JavaScript for node.js based on GNU crontab. This module allows you to schedule task in node.js using full crontab syntax.
 var config = require('./config.js'); //Importamos la configuracion de las 
                                     //credenciales de twitter desde el archivo config.js
 
-//Configuramos la API de Twitter, los datos estan en el .env
+//Configuramos la API de Twitter, los datos estan en config.js
 var T = new Twit(config);
 
-//Declaramos los hashtags o textos que nos interesa seguir
-const stream1 = T.stream("statuses/filter", { track: "#QuedateEnCasa" });
-const stream2 = T.stream("statuses/filter", { track: "#EnsEnSortirem" });
+/**START Configuración de parametros**/
+const prob_rt = 5;
+const prob_mg = 100;
+const prob_follow = 7;
+const min_followers = 750; //Minimo de seguidores para que interaccione con la cuenta
 
+//Limite de acciones por dia
+const mg_diarios = 400;
+const rt_diarios = 70;
+const follow_diarios = 250;
+
+//Control de las acciones por dia actualmente
+var mg_diarios_actuales = 0;
+var rt_diarios_actuales = 0;
+var follow_diarios_actuales = 0;
+/**-END  Configuración de parametros**/
+
+/**Reset de acciones diarias**/
+cron.schedule("10 20 8 * * *", () => {
+  mg_diarios_actuales = 0;
+  rt_diarios_actuales = 0;
+  follow_diarios_actuales = 0;
+});
+/**-Reset de acciones diarias**/
+
+
+//Declaramos los hashtags o textos que nos interesa seguir
+console.log("Buscando tweets . . .");
+
+const Barcelona = [ '41.046', '0.637',  '42.066', '3.505' ];
+
+const hashtags =  ['#EnsEnSortirem', '#ElIntermedio', '#QuedateEnCasa', "#amor"];
+// const stream1 = T.stream("statuses/filter", { track: "#QuedateEnCasa" });
+// const stream2 = T.stream("statuses/filter", { track: "#EnsEnSortirem" });
+// const stream3 = T.stream("statuses/filter", { track: "#ElIntermedio" });
+const receivingStream = T.stream("statuses/filter", { track: hashtags, locations: Barcelona, language: 'es'  } );
 // escuchando todos los tweets que contengan el hashtag #QuedateEnCasa y #EnsEnSortirem
 
 // Un "retweet" dado a un post de hastag/texto concreto
-stream1.on("tweet", reTweet);
-stream2.on("tweet", reTweet);
+// stream1.on("tweet", reTweet);
+// stream2.on("tweet", reTweet);
 
 // Un "Me gusta" dado a un post de hastag/texto concreto
-stream1.on("tweet", meGusta);
-stream2.on("tweet", meGusta);
+// stream1.on("tweet", meGusta);
+// stream2.on("tweet", meGusta);
+// stream3.on("tweet", meGusta);
+receivingStream.on("tweet", meGusta);
 
 // Retweets automáticamente
 //Funcion encargada de dar Retweet
@@ -32,14 +67,27 @@ function reTweet(tweet) {
   // TODO recuentos
 }
 
-// Dar Me Gusta a Tweets de forma automática
+
+//Funcion encargada de dar Me Gusta
 function meGusta(tweet) {
-  T.post("favorites/create", { id: tweet.id_str }, function(
-    err,
-    data,
-    response
-  ) {
-    console.log("Me gusta dado a: @" + tweet.user.screen_name);
-  });
-  // TODO recuentos
+  let random_number = randomNumber();
+  console.log("Número random", random_number, "asignado a @" + tweet.user.screen_name, "followers", tweet.user.followers_count  );
+  if (random_number < prob_mg && tweet.user.followers_count > min_followers && (mg_diarios_actuales < mg_diarios) && tweet.entities.hashtags.length < 3) {
+    T.post("favorites/create", { id: tweet.id_str }, function(
+      err,
+      data,
+      response
+    ) {
+      console.log("Me gusta dado a: @" + tweet.user.screen_name + ". El númbero random es: " + random_number + ". Sus folowers son: " + tweet.user.followers_count
+      + ". Localidad: " + tweet.user.location + ". H: " + tweet.created_at ); 
+    });
+    mg_diarios_actuales++;
+    console.log("Hoy llevas " + mg_diarios_actuales + " me gusta dados.");
+  }
+}
+
+
+//Devuelve un numero del 1 al 100
+function randomNumber() {
+  return Math.floor(Math.random() * 100 + 1);
 }
