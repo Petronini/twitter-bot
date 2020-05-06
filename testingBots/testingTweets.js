@@ -1,5 +1,5 @@
 const Twit = require("twit");   // módulos necesarios
-var config = require('./config.js');
+var config = require('../config.js');
 
 //configuración API's Twitter
 var T = new Twit(config);

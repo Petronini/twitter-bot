@@ -1,5 +1,5 @@
 const Twit = require('twit');
-const config = require('./config.js');
+const config = require('../config.js');
 // API's Twitter config
 let T = new Twit(config);
 /////////////////////////
