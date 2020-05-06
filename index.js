@@ -39,6 +39,7 @@ const Spain = ['35.693', '-9.47', '43.66',' 3.582'];
 const Barcelona = ['41.046', '0.637',  '42.066', '3.505'];
 const sanFrancisco = [ '-122.75', '36.8', '-121.75', '37.8' ];
 const bcn = '41.3897,2.1568,20km';
+const Bcn = '41.046,0.637,42.066,3.505';
 // Barcelona '41.046', '0.637',  '42.066', '3.505'
 // Spain '35.693', '-9.47', '43.66',' 3.582' 
 // , '#ElIntermedio', '#QuedateEnCasa'
@@ -47,8 +48,8 @@ const bcn = '41.3897,2.1568,20km';
 // const stream3 = T.stream("statuses/filter", { track: "#ElIntermedio" });
 // track params: locations: Spain, language: 'es' 
 const stream = T.stream(  "statuses/filter", { 
-  track: ['#EnsEnSortirem filter:media', '#QuedateEnCasa filter:media', '#ElIntermedio filter:media', '#QuédateEnCasa filter:media'],
-  locations: Spain,
+  track: ['#EnsEnSortirem filter:media', '#QuedateEnCasa filter:media', '#ElIntermedio filter:media', '#QuédateEnCasa'],
+  locations: Bcn,
   language: '' 
   }  );
   
