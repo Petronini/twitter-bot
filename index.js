@@ -1,10 +1,10 @@
 const Twit = require("twit"); //Importamos la libreria de twit 2.2.11
 const cron = require("node-cron");//The node-cron module is tiny task scheduler in pure JavaScript for node.js based on GNU crontab. This module allows you to schedule task in node.js using full crontab syntax.
-var config = require('./config.js'); //Importamos la configuracion de las 
+let config = require('./config.js'); //Importamos la configuracion de las 
                                     //credenciales de twitter desde el archivo config.js
 
 //Configuramos la API de Twitter, los datos estan en config.js
-var T = new Twit(config);
+let T = new Twit(config);
 
 /**START Configuración de parametros**/
 const prob_rt = 5;
@@ -48,8 +48,8 @@ const Bcn = '41.046,0.637,42.066,3.505';
 // const stream3 = T.stream("statuses/filter", { track: "#ElIntermedio" });
 // track params: locations: Spain, language: 'es' 
 const stream = T.stream(  "statuses/filter", { 
-  track: ['#EnsEnSortirem filter:media', '#QuedateEnCasa filter:media', '#ElIntermedio'],
-  locations: Bcn,
+  track: ['#EnsEnSortirem', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño'],
+  locations: Barcelona,
   language: '' 
   }  );
   

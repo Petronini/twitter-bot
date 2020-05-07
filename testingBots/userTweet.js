@@ -23,8 +23,8 @@ let T = new Twit(config);
 // var stream = T.stream('followers/ids', {count: 5})
  
 // stream.on('follow', t => console.log(t)  )
-const path = 'friendships/show'; 
-const params = {source_screen_name: 'HansPeterT', target_screen_name: 'JorgeRoot' }; 
+const path = 'users/show'; 
+const params = {screen_name: 'Neo_end' }; 
 T.get( path, params, (err, data, response) => {
     // console.log(data.users[1].name)
     //data.users.forEach( element => console.log(element.name));
