@@ -24,10 +24,10 @@ let T = new Twit(config);
  
 // stream.on('follow', t => console.log(t)  )
 const path = 'followers/list'; 
-const params = {screen_name: 'JorgeRoot'};  
+const params = {screen_name: 'Neo_end'};  
 T.get( path, params, (err, data, response) => {
     // console.log(data.users[1].name)
-    data.users.forEach( element => console.log(element.id_str ,element.screen_name));
+    data.users.forEach( (element, index) => console.log(index, element.id_str ,element.screen_name));
     
   } );
 

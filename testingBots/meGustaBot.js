@@ -8,7 +8,7 @@ let T = new Twit(config);
 
 /**START Configuración de parametros**/
 const prob_rt = 5;
-const prob_mg = 10; //probabilidad [de 0-100] de que el mensaje se sea aceptado
+const prob_mg = 30; //probabilidad [de 0-100] de que el mensaje se sea aceptado
 const prob_follow = 7;
 const min_followers = 750; //Minimo de seguidores para que interaccione con la cuenta
 
@@ -48,7 +48,7 @@ const Bcn = '41.046,0.637,42.066,3.505';
 // const stream3 = T.stream("statuses/filter", { track: "#ElIntermedio" });
 // track params: locations: Spain, language: 'es' 
 const stream = T.stream(  "statuses/filter", { 
-  track: ['#EnsEnSortirem', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño'],
+  track: ['#EnsEnSortirem filter:images', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño filter:images'],
   locations: Barcelona,
   language: '' 
   }  );

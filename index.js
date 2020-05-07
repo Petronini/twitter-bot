@@ -48,7 +48,7 @@ const Bcn = '41.046,0.637,42.066,3.505';
 // const stream3 = T.stream("statuses/filter", { track: "#ElIntermedio" });
 // track params: locations: Spain, language: 'es' 
 const stream = T.stream(  "statuses/filter", { 
-  track: ['#EnsEnSortirem', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño'],
+  track: ['#EnsEnSortirem', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño filter:images'],
   locations: Barcelona,
   language: '' 
   }  );
