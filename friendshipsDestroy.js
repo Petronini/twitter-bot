@@ -1,5 +1,5 @@
 const Twit = require("twit");
-const config = require("../config.js");
+const config = require("./config.js");
 // API's Twitter config
 let T = new Twit(config);
 /////////////////////////
@@ -41,7 +41,7 @@ function doVerificar(verificandoFuente, seguidor_a_borrar) {
 
 
 const path3 = 'followers/list'; 
-const params3 = {screen_name: 'Neo_end'};  
+const params3 = {screen_name: 'Neo_end', count: 100};  
 T.get( path3, params3, (err, data, response) => {
     // console.log(data.users[1].name)
     // data.users.forEach( (element, index) => console.log(index, element.id_str ,element.screen_name));
