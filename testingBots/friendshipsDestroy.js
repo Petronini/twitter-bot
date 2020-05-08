@@ -27,8 +27,8 @@ function unFollow(seguidorBorrar) {
   });
 }
 
-function doVerificar(verificando, seguidor_a_borrar) {
-  if (verificando) {
+function doVerificar(verificandoFuente, seguidor_a_borrar) {
+  if (verificandoFuente) {
     const path2 = "friendships/destroy";
     const params1 = { screen_name: seguidor_a_borrar };
     T.delete(path2, params1, (err, data, response) => {
