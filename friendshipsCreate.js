@@ -17,7 +17,7 @@ function follow(seguirUsuario) {
       "target: " + params.target_screen_name,
       data.relationship.target.following
     );
-    following(data.relationship.target.following, seguirUsuario);
+    // following(data.relationship.target.following, seguirUsuario);
   });
 }
 

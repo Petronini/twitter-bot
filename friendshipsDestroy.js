@@ -4,32 +4,27 @@ const config = require("./config.js");
 let T = new Twit(config);
 /////////////////////////
 
-function checkingFriendship(seguidorBorrar, index) {
-  let seguidor_a_borrar = seguidorBorrar;
-
+function unfollow(seguidorBorrar) {
   const path = "friendships/show";
   const params = {
     source_screen_name: "Neo_end",
-    target_screen_name: seguidor_a_borrar,
+    target_screen_name: seguidorBorrar,
   };
-
   T.get(path, params, (err, data, response) => {
-     console.log(
-      index,
+    console.log(
       "source: " + params.source_screen_name,
       data.relationship.source.following,
       "target: " + params.target_screen_name,
       data.relationship.target.following
     );
-
-    unFollow(data.relationship.target.following, seguidor_a_borrar);
   });
+  // unfollowing(data.relationship.target.following, seguidorBorrar);
 }
 
-function unFollow(checkoutTarget, seguidor_a_borrar) {
-  if (checkoutTarget = false) {
+function unfollowing(checkoutTarget, seguidorBorrar) {
+  if (checkoutTarget == false) {
     const path = "friendships/destroy";
-    const params = { screen_name: seguidor_a_borrar };
+    const params = { screen_name: seguidorBorrar };
     T.delete(path, params, (err, data, response) => {
       // console.log(data.users[1].name)
       //data.users.forEach( element => console.log(element.name));
@@ -41,12 +36,16 @@ function unFollow(checkoutTarget, seguidor_a_borrar) {
 function friendsList() {
   //Returns a cursored collection of user objects for users following the specified user.
   // Lista de gente que sigo.
+  // console.log(data.users[1].name)
+  //data.users.forEach( element => console.log(element.name));
   const path = "friends/list";
   const params = { screen_name: "Neo_end", count: 100 };
   T.get(path, params, (err, data, response) => {
-    data.users.forEach((element, index) =>
-      checkingFriendship(element.screen_name, index)
-    );
+    for (let i = 0; i < data.users.length; i++) {
+      const element = data.users[i];
+      unfollow(element.screen_name);
+      // console.log(i, element.screen_name);
+    }
   });
 }
 
