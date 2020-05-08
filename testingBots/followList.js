@@ -30,4 +30,3 @@ T.get( path, params, (err, data, response) => {
     data.users.forEach( (element, index) => console.log(index, element.id_str ,element.screen_name));
     
   } );
-

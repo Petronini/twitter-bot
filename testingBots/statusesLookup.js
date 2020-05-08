@@ -5,8 +5,8 @@ let T = new Twit(config);
 /////////////////////////
 
 
-const path = 'friendships/destroy';
-const params = {screen_name: 'ChuyValdesP' }
+const path = 'statuses/lookup';
+const params = {id: 3307541050 }
 T.get( path, params, (err, data, response) => {
   // console.log(data.users[1].name)
   //data.users.forEach( element => console.log(element.name));
