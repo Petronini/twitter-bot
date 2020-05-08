@@ -4,51 +4,38 @@ const config = require("./config.js");
 let T = new Twit(config);
 /////////////////////////
 
-
-function unFollow(seguidorBorrar) {
-  let seguidor_a_borrar = seguidorBorrar;
-
+function follow(seguirUsuario) {
   const path = "friendships/show";
   const params = {
     source_screen_name: "Neo_end",
-    target_screen_name: seguidor_a_borrar
+    target_screen_name: seguirUsuario
   };
-
   T.get(path, params, (err, data, response) => {
-    // console.log(data.users[1].name)
-    //data.users.forEach( element => console.log(element.name));
     console.log(
       "source: " + params.source_screen_name,
       data.relationship.source.following,
       "target: " + params.target_screen_name,
       data.relationship.target.following
     );
-
-    doVerificar(data.relationship.source.following, seguidor_a_borrar);
+    following(data.relationship.target.following, seguirUsuario);
   });
 }
 
-function doVerificar(verificandoFuente, seguidor_a_borrar) {
-  if (verificandoFuente) {
-    const path = "friendships/destroy";
-    const params = { screen_name: seguidor_a_borrar };
-    T.delete(path, params, (err, data, response) => {
-      // console.log(data.users[1].name)
-      //data.users.forEach( element => console.log(element.name));
-      console.log(data.screen_name, "unfollowed");
+function following(verificandoTarget, seguirUsuario) {
+  if (verificandoTarget) {
+    const path = "friendships/create";
+    const params = { screen_name: seguirUsuario };
+    T.post(path, params, (err, data, response) => {
+      console.log(data.screen_name, "followed");
     });
   }
 }
 
-
-const path = 'followers/list'; 
-const params = {screen_name: 'Neo_end', count: 100};  
-T.get( path, params, (err, data, response) => {
-    // console.log(data.users[1].name)
-    // data.users.forEach( (element, index) => console.log(index, element.id_str ,element.screen_name));
-    data.users.forEach( (element) => unFollow(element.screen_name) );
-  } );
-
+const path = "followers/list";
+const params = { screen_name: "Neo_end", count: 100 };
+T.get(path, params, (err, data, response) => {
+  data.users.forEach(  (element) => follow(element.screen_name)  );
+});
 
 // const path = 'friendships/destroy';
 // const params1 = { screen_name: 'ChuyValdesP' }
