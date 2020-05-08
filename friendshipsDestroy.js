@@ -17,12 +17,12 @@ function unfollow(seguidorBorrar) {
       "target: " + params.target_screen_name,
       data.relationship.target.following
     );
+    unfollowing(data.relationship.target.following, seguidorBorrar);
   });
-  // unfollowing(data.relationship.target.following, seguidorBorrar);
 }
-
-function unfollowing(checkoutTarget, seguidorBorrar) {
-  if (checkoutTarget == false) {
+let limit = 0;
+function unfollowing(target, seguidorBorrar) {  
+  if (target == false && limit <= 2) {
     const path = "friendships/destroy";
     const params = { screen_name: seguidorBorrar };
     T.delete(path, params, (err, data, response) => {
@@ -30,6 +30,7 @@ function unfollowing(checkoutTarget, seguidorBorrar) {
       //data.users.forEach( element => console.log(element.name));
       console.log(data.screen_name, "unfollowed");
     });
+    limit++;
   }
 }
 
