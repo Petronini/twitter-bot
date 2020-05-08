@@ -15,12 +15,10 @@ let T = new Twit(config);
 // }
 
 //Returns a cursored collection of user objects for users following the specified user.
-// Lista de gente que te sigue.
+// Lista de gente que sigo.
 
-const path = 'followers/list'; 
+const path = 'friends/list'; 
 const params = {screen_name: 'Neo_end', count: 100};  
 T.get( path, params, (err, data, response) => {
-    // console.log(data.users[1].name)
     data.users.forEach( (element, index) => console.log(index, element.id_str ,element.screen_name));
-    
   } );

@@ -31,33 +31,12 @@ function following(verificandoTarget, seguirUsuario) {
   }
 }
 
+
 const path = "followers/list";
 const params = { screen_name: "Neo_end", count: 100 };
 T.get(path, params, (err, data, response) => {
   data.users.forEach(  (element) => follow(element.screen_name)  );
 });
 
-// const path = 'friendships/destroy';
-// const params1 = { screen_name: 'ChuyValdesP' }
-// T.delete( path, params1, (err, data, response) => {
-//   // console.log(data.users[1].name)
-//   //data.users.forEach( element => console.log(element.name));
-//   console.log( data );
 
-// } );
 
-// // const stream =  T.stream('user', { stringify_friend_ids: true });
-// const path = 'followers/list';
-// const params = {screen_name: 'Neo_end'};
-// const path = 'statuses/sample';
-
-// const params = undefined;
-// const stream =  T.stream( path, params );
-
-// stream.on('tweet', t => console.log(t)  )
-
-// T.get( path, params, (err, data, response) => {
-//     // console.log(data.users[1].name)
-//     data.users.forEach( element => console.log(element.id_str ,element.screen_name));
-
-//   } );

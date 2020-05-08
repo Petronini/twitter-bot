@@ -5,7 +5,7 @@ let T = new Twit(config);
 /////////////////////////
 
 const path = 'friendships/show'; 
-const params = {source_screen_name: 'JorgeRoot', target_screen_name: 'Neo_end' }; 
+const params = {source_screen_name: 'Neo_end', target_screen_name: 'JorgeRoot' }; 
 T.get( path, params, (err, data, response) => {
     // console.log(data.users[1].name)
     //data.users.forEach( element => console.log(element.name));
