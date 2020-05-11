@@ -3,26 +3,28 @@ const config = require("./config.js");
 // API's Twitter config
 let T = new Twit(config);
 /////////////////////////
-
+// Dresciption: sigue a los usuario que me siguen
 function follow(seguirUsuario) {
   const path = "friendships/show";
   const params = {
     source_screen_name: "Neo_end",
-    target_screen_name: seguirUsuario
+    target_screen_name: seguirUsuario,
   };
   T.get(path, params, (err, data, response) => {
+    let source = data.relationship.source.following;
+    let target = data.relationship.target.following;
     console.log(
       "source: " + params.source_screen_name,
-      data.relationship.source.following,
+      source,
       "target: " + params.target_screen_name,
-      data.relationship.target.following
+      target
     );
-    // following(data.relationship.target.following, seguirUsuario);
+    following(source, target, seguirUsuario);
   });
 }
 
-function following(verificandoTarget, seguirUsuario) {
-  if (verificandoTarget) {
+function following(source, target, seguirUsuario) {
+  if (source == false && target) {
     const path = "friendships/create";
     const params = { screen_name: seguirUsuario };
     T.post(path, params, (err, data, response) => {
@@ -31,12 +33,8 @@ function following(verificandoTarget, seguirUsuario) {
   }
 }
 
-
 const path = "followers/list";
 const params = { screen_name: "Neo_end", count: 100 };
 T.get(path, params, (err, data, response) => {
-  data.users.forEach(  (element) => follow(element.screen_name)  );
+  data.users.forEach((element) => follow(element.screen_name));
 });
-
-
-

@@ -67,16 +67,16 @@ stream.on("tweet", meGusta);
 
 // Retweets automáticamente
 //Funcion encargada de dar Retweet
-function reTweet(tweet) {
-  T.post("statuses/retweet/:id", { id: tweet.id_str }, function(
-    err,
-    data,
-    response
-  ){
-    console.log("RT dado a: @" + tweet.user.screen_name);
-  });
-  // TODO recuentos
-}
+// function reTweet(tweet) {
+//   T.post("statuses/retweet/:id", { id: tweet.id_str }, function(
+//     err,
+//     data,
+//     response
+//   ){
+//     console.log("RT dado a: @" + tweet.user.screen_name);
+//   });
+//   // TODO recuentos
+// }
 
 
 //Funcion encargada de dar Me Gusta
