@@ -42,13 +42,10 @@ const bcn = '41.3897,2.1568,20km';
 const Bcn = '41.046,0.637,42.066,3.505';
 // Barcelona '41.046', '0.637',  '42.066', '3.505'
 // Spain '35.693', '-9.47', '43.66',' 3.582' 
-// , '#ElIntermedio', '#QuedateEnCasa'
-// const stream1 = T.stream("statuses/filter", { track: "#QuedateEnCasa" });
-// const stream2 = T.stream("statuses/filter", { track: "#EnsEnSortirem" });
-// const stream3 = T.stream("statuses/filter", { track: "#ElIntermedio" });
 // track params: locations: Spain, language: 'es' 
+// track: ['#EnsEnSortirem', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño filter:images']
 const stream = T.stream(  "statuses/filter", { 
-  track: ['#EnsEnSortirem', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño filter:images'],
+  track: ['#EnsEnSortirem', '#QuedateEnCasa', '#ElIntermedio', '#BillyElNiño'],
   locations: Barcelona,
   language: '' 
   }  );
@@ -64,6 +61,8 @@ const stream = T.stream(  "statuses/filter", {
 // stream2.on("tweet", meGusta);
 // stream3.on("tweet", meGusta);
 stream.on("tweet", meGusta);
+stream.on('tweet', reTweet);
+
 
 // Retweets automáticamente
 //Funcion encargada de dar Retweet
@@ -77,7 +76,20 @@ stream.on("tweet", meGusta);
 //   });
 //   // TODO recuentos
 // }
-
+//Funcion encargada de dar Retweet
+function reTweet(tweet) {
+  if (randomNumber() < prob_rt && tweet.user.followers_count > min_followers*2 && (rt_diarios_actuales < rt_diarios) && tweet.entities.hashtags.length < 3) {
+    T.post("statuses/retweet/:id", { id: tweet.id_str }, function(
+      err,
+      data,
+      response
+    ) {
+      console.log("RT dado a: @" + tweet.user.screen_name);
+    });
+    rt_diarios_actuales++;
+    console.log("Hoy llevas "+rt_diarios_actuales+" RT gusta dados.");
+  }
+}
 
 //Funcion encargada de dar Me Gusta
 function meGusta(tweet) {

@@ -1,5 +1,5 @@
 const Twit = require("twit");
-const config = require("./config.js");
+const config = require("../config.js");
 // API's Twitter config
 let T = new Twit(config);
 /////////////////////////
@@ -22,13 +22,13 @@ function unfollow(seguidorBorrar) {
 }
 let limit = 0;
 function unfollowing(target, seguidorBorrar) {  
-  if (target == false && limit <= 2) {
+  if (target == false && limit <= 7) {
     const path = "friendships/destroy";
     const params = { screen_name: seguidorBorrar };
     T.delete(path, params, (err, data, response) => {
       // console.log(data.users[1].name)
       //data.users.forEach( element => console.log(element.name));
-      console.log(data.screen_name, "unfollowed");
+      console.log(data.screen_name, "✔️ unfollowed");
     });
     limit++;
   }

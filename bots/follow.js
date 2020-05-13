@@ -1,5 +1,5 @@
 const Twit = require("twit");
-const config = require("./config.js");
+const config = require("../config.js");
 // API's Twitter config
 let T = new Twit(config);
 /////////////////////////
@@ -28,13 +28,13 @@ function following(source, target, seguirUsuario) {
     const path = "friendships/create";
     const params = { screen_name: seguirUsuario };
     T.post(path, params, (err, data, response) => {
-      console.log(data.screen_name, "followed");
+      console.log(data.screen_name, "✪ followed");
     });
   }
 }
 
 const path = "followers/list";
-const params = { screen_name: "Neo_end", count: 100 };
+const params = { screen_name: "Neo_end", count: 50 };
 T.get(path, params, (err, data, response) => {
   data.users.forEach((element) => follow(element.screen_name));
 });
