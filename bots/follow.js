@@ -1,3 +1,4 @@
+// sigue a la gente que te sigue
 const Twit = require("twit");
 const config = require("../config.js");
 // API's Twitter config

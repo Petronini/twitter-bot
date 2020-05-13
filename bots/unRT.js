@@ -1,3 +1,4 @@
+// hace  un unReTweet de tu lista de reTweets
 const Twit = require("twit");
 const config = require("../config.js");
 // API's Twitter config
