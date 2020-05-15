@@ -36,7 +36,7 @@ function unreTweet(users) {
     if (count < users.length) {
       T.post("statuses/unretweet/:id", { id: users[count] }, (err, data, response) => console.log("✔️  unRT ✪", users[count]));
       count++;
-    } else {clearInterval(start); getStarting();}
+    } else clearInterval(start);
     
   }, timeRandom());
   
