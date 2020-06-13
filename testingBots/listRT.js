@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Twit = require('twit');
 const config = require('../config.js');
 // API's Twitter config

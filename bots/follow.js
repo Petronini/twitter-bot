@@ -1,4 +1,5 @@
 // sigue a la gente que te sigue
+require('dotenv').config();
 const Twit = require("twit");
 const config = require("../config.js");
 // API's Twitter config
@@ -8,7 +9,7 @@ let T = new Twit(config);
 function follow(seguirUsuario) {
   const path = "friendships/show";
   const params = {
-    source_screen_name: "Neo_end",
+    source_screen_name: "escarabajus",
     target_screen_name: seguirUsuario,
   };
   T.get(path, params, (err, data, response) => {
@@ -35,7 +36,8 @@ function following(source, target, seguirUsuario) {
 }
 
 const path = "followers/list";
-const params = { screen_name: "Neo_end", count: 50 };
+const params = { screen_name: "escarabajus", count: 50 };
 T.get(path, params, (err, data, response) => {
-  data.users.forEach((element) => follow(element.screen_name));
+  // console.log(data.users[1].name)
+  data.users.forEach( (element) => follow(element.screen_name) );
 });

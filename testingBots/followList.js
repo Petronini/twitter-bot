@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Twit = require('twit');
 const config = require('../config.js');
 // API's Twitter config
@@ -18,9 +19,9 @@ let T = new Twit(config);
 // Lista de gente que te sigue.
 
 const path = 'followers/list'; 
-const params = {screen_name: 'Neo_end', count: 100};  
+const params = {screen_name: 'escarabajus', count: 100};  
 T.get( path, params, (err, data, response) => {
     // console.log(data.users[1].name)
-    data.users.forEach( (element, index) => console.log(index, element.id_str ,element.screen_name));
+    data.users.forEach( (element, index) => console.log(index, element.id_str ,element.screen_name) );
     
   } );

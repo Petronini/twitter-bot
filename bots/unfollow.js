@@ -1,5 +1,6 @@
 // hace un unfollow a toda la gente que
 // no te sigue
+require('dotenv').config();
 const Twit = require("twit");
 const config = require("../config.js");
 // API's Twitter config
@@ -42,7 +43,7 @@ function friendsList() {
   // console.log(data.users[1].name)
   //data.users.forEach( element => console.log(element.name));
   const path = "friends/list";
-  const params = { screen_name: "Neo_end", count: 100 };
+  const params = { screen_name: "escarabajus", count: 100 };
   T.get(path, params, (err, data, response) => {
     for (let i = 0; i < data.users.length; i++) {
       const element = data.users[i];

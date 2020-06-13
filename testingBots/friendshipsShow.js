@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Twit = require('twit');
 const config = require('../config.js');
 // API's Twitter config
@@ -5,7 +6,7 @@ let T = new Twit(config);
 /////////////////////////
 
 const path = 'friendships/show'; 
-const params = {source_screen_name: 'Neo_end', target_screen_name: 'JorgeRoot' }; 
+const params = {source_screen_name: 'escarabajus', target_screen_name: 'JorgeRoot' }; 
 T.get( path, params, (err, data, response) => {
     // console.log(data.users[1].name)
     //data.users.forEach( element => console.log(element.name));
