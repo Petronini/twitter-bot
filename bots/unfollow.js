@@ -1,6 +1,5 @@
 // hace un unfollow a toda la gente que
 // no te sigue
-require('dotenv').config();
 const Twit = require("twit");
 const config = require("../config.js");
 // API's Twitter config

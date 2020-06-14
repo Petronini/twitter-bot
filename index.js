@@ -1,4 +1,3 @@
-require('dotenv').config();
 const Twit = require("twit"); //Importamos la libreria de twit 2.2.11
 const cron = require("node-cron");//The node-cron module is tiny task scheduler in pure JavaScript for node.js based on GNU crontab. This module allows you to schedule task in node.js using full crontab syntax.
 let config = require('./config.js'); //Importamos la configuracion de las 
