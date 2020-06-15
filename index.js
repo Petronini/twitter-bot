@@ -44,9 +44,9 @@ const Bcn = '41.046,0.637,42.066,3.505';
 // track params: locations: Spain, language: 'es' 
 // track: ['#EnsEnSortirem', '#QuedateEnCasa filter:media', '#ElIntermedio', '#BillyElNiño filter:images']
 const stream = T.stream(  "statuses/filter", { 
-  track: ['#EnsEnSortirem', '#QuedateEnCasa', '#ElIntermedio', '#BillyElNiño', '#l6cEconovirus'],
-  locations: Barcelona,
-  language: '' 
+  track: ['#EnsEnSortirem', '#ElIntermedio', '#BillyElNiño', '#l6cEconovirus'],
+  locations: Spain,
+  language: 'es' 
   }  );
   
 // escuchando todos los tweets que contengan el hashtag #QuedateEnCasa y #EnsEnSortirem

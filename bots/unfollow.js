@@ -5,11 +5,11 @@ const config = require("../config.js");
 // API's Twitter config
 let T = new Twit(config);
 /////////////////////////
-
+let accountTwitter = "escarabajus";
 function unfollow(seguidorBorrar) {
   const path = "friendships/show";
   const params = {
-    source_screen_name: "Neo_end",
+    source_screen_name: accountTwitter,
     target_screen_name: seguidorBorrar,
   };
   T.get(path, params, (err, data, response) => {
@@ -24,7 +24,7 @@ function unfollow(seguidorBorrar) {
 }
 let limit = 0;
 function unfollowing(target, seguidorBorrar) {  
-  if (target == false && limit <= 7) {
+  if (target == false && limit <= 2) {
     const path = "friendships/destroy";
     const params = { screen_name: seguidorBorrar };
     T.delete(path, params, (err, data, response) => {
@@ -42,12 +42,12 @@ function friendsList() {
   // console.log(data.users[1].name)
   //data.users.forEach( element => console.log(element.name));
   const path = "friends/list";
-  const params = { screen_name: "escarabajus", count: 100 };
+  const params = { screen_name: accountTwitter, count: 150 };
   T.get(path, params, (err, data, response) => {
     for (let i = 0; i < data.users.length; i++) {
       const element = data.users[i];
       unfollow(element.screen_name);
-      // console.log(i, element.screen_name);
+      console.log(i, element.screen_name);
     }
   });
 }

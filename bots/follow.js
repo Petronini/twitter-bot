@@ -35,7 +35,7 @@ function following(source, target, seguirUsuario) {
 }
 
 const path = "followers/list";
-const params = { screen_name: "escarabajus", count: 50 };
+const params = { screen_name: "escarabajus", count: 2 };
 T.get(path, params, (err, data, response) => {
   // console.log(data.users[1].name)
   data.users.forEach( (element) => follow(element.screen_name) );
